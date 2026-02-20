@@ -22,20 +22,20 @@ export interface HabitLog {
 }
 
 const DEFAULT_HABITS: Habit[] = [
-  { id: 'h1', name: 'Exercise',           type: 'good', points: 20, emoji: '🏃', status: 'active' },
-  { id: 'h2', name: 'Read',               type: 'good', points: 15, emoji: '📚', status: 'active' },
-  { id: 'h3', name: 'Meditate',           type: 'good', points: 10, emoji: '🧘', status: 'active' },
-  { id: 'h4', name: 'Drink Water',        type: 'good', points:  5, emoji: '💧', status: 'active' },
-  { id: 'h5', name: 'Sleep 8h',           type: 'good', points: 15, emoji: '😴', status: 'active' },
-  { id: 'h6', name: 'Smoking',            type: 'bad',  points: 25, emoji: '🚬', status: 'active' },
-  { id: 'h7', name: 'Junk Food',          type: 'bad',  points: 15, emoji: '🍔', status: 'active' },
-  { id: 'h8', name: 'Social Media Binge', type: 'bad',  points: 10, emoji: '📱', status: 'active' },
-  { id: 'h9', name: 'Skip Workout',       type: 'bad',  points: 10, emoji: '🛋️', status: 'active' },
-  { id: 'h10',name: 'Late Night Screen',  type: 'bad',  points: 10, emoji: '🌙', status: 'active' },
+  { id: 'h1', name: 'Exercise', type: 'good', points: 20, emoji: '🏃', status: 'active' },
+  { id: 'h2', name: 'Read', type: 'good', points: 15, emoji: '📚', status: 'active' },
+  { id: 'h3', name: 'Meditate', type: 'good', points: 10, emoji: '🧘', status: 'active' },
+  { id: 'h4', name: 'Drink Water', type: 'good', points: 5, emoji: '💧', status: 'active' },
+  { id: 'h5', name: 'Sleep 8h', type: 'good', points: 15, emoji: '😴', status: 'active' },
+  { id: 'h6', name: 'Smoking', type: 'bad', points: 25, emoji: '🚬', status: 'active' },
+  { id: 'h7', name: 'Junk Food', type: 'bad', points: 15, emoji: '🍔', status: 'active' },
+  { id: 'h8', name: 'Social Media Binge', type: 'bad', points: 10, emoji: '📱', status: 'active' },
+  { id: 'h9', name: 'Skip Workout', type: 'bad', points: 10, emoji: '🛋️', status: 'active' },
+  { id: 'h10', name: 'Late Night Screen', type: 'bad', points: 10, emoji: '🌙', status: 'active' },
 ];
 
 const STORAGE_HABITS = 'ht_habits_v3';
-const STORAGE_LOGS   = 'ht_logs_v2';
+const STORAGE_LOGS = 'ht_logs_v2';
 
 interface HabitContextType {
   /** ALL habits (active + archived + deleted) — used for historical score calculation */
@@ -47,27 +47,27 @@ interface HabitContextType {
   logs: HabitLog[];
   today: string;
 
-  getLogsForDate:      (date: string) => HabitLog[];
-  isGoodHabitDone:     (habitId: string, date: string) => boolean;
-  isBadHabitIndulged:  (habitId: string, date: string) => boolean;
-  toggleGoodHabit:     (habitId: string, date: string) => void;
-  toggleBadHabit:      (habitId: string, date: string) => void;
+  getLogsForDate: (date: string) => HabitLog[];
+  isGoodHabitDone: (habitId: string, date: string) => boolean;
+  isBadHabitIndulged: (habitId: string, date: string) => boolean;
+  toggleGoodHabit: (habitId: string, date: string) => void;
+  toggleBadHabit: (habitId: string, date: string) => void;
 
-  calculateDayScore:   (date: string) => number;
-  getTotalScore:       () => number;
-  getScoreLevel:       (score: number) => string;
-  getDayDetails:       (date: string) => { goodDone: number; badIndulged: number; badAvoided: number; score: number };
+  calculateDayScore: (date: string) => number;
+  getTotalScore: () => number;
+  getScoreLevel: (score: number) => string;
+  getDayDetails: (date: string) => { goodDone: number; badIndulged: number; badAvoided: number; score: number };
 
-  addHabit:            (habit: Omit<Habit, 'id' | 'status'>) => void;
+  addHabit: (habit: Omit<Habit, 'id' | 'status'>) => void;
   /** Soft-delete: habit becomes status='deleted'. Logs kept; shows in past day data. */
-  deleteHabit:         (id: string) => void;
+  deleteHabit: (id: string) => void;
   /** Archive: habit becomes status='archived'. Hidden everywhere; score still silently counts. */
-  archiveHabit:        (id: string) => void;
+  archiveHabit: (id: string) => void;
   /** Restore an archived habit back to active. */
-  unarchiveHabit:      (id: string) => void;
+  unarchiveHabit: (id: string) => void;
   /** Permanent removal of a habit AND its logs. */
   permanentlyDeleteHabit: (id: string) => void;
-  updateHabit:         (id: string, updates: Partial<Habit>) => void;
+  updateHabit: (id: string, updates: Partial<Habit>) => void;
 
   /** Export raw data for cloud sync */
   exportData: () => { habits: Habit[]; logs: HabitLog[] };
@@ -102,9 +102,9 @@ export function HabitProvider({ children }: { children: React.ReactNode }) {
   });
 
   useEffect(() => { localStorage.setItem(STORAGE_HABITS, JSON.stringify(habits)); }, [habits]);
-  useEffect(() => { localStorage.setItem(STORAGE_LOGS,   JSON.stringify(logs));   }, [logs]);
+  useEffect(() => { localStorage.setItem(STORAGE_LOGS, JSON.stringify(logs)); }, [logs]);
 
-  const activeHabits   = habits.filter(h => h.status === 'active');
+  const activeHabits = habits.filter(h => h.status === 'active');
   const archivedHabits = habits.filter(h => h.status === 'archived');
 
   const getLogsForDate = useCallback((date: string) =>
@@ -170,7 +170,7 @@ export function HabitProvider({ children }: { children: React.ReactNode }) {
     if (score >= 40) return 'excellent';
     if (score >= 20) return 'great';
     if (score >= 10) return 'good';
-    if (score > 0)   return 'ok';
+    if (score > 0) return 'ok';
     if (score === 0) return 'neutral';
     if (score > -10) return 'slightly-bad';
     if (score > -20) return 'bad';
@@ -178,14 +178,14 @@ export function HabitProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const getDayDetails = useCallback((date: string) => {
-    const dayLogs  = logs.filter(l => l.date === date);
-    const isPast   = date < today;
+    const dayLogs = logs.filter(l => l.date === date);
+    const isPast = date < today;
     // Only count active habits for the "detail" counts (what user sees)
     const goodHabits = habits.filter(h => h.type === 'good' && h.status !== 'archived');
-    const badHabits  = habits.filter(h => h.type === 'bad'  && h.status !== 'archived');
-    const goodDone    = goodHabits.filter(h => dayLogs.some(l => l.habitId === h.id && l.action === 'done')).length;
+    const badHabits = habits.filter(h => h.type === 'bad' && h.status !== 'archived');
+    const goodDone = goodHabits.filter(h => dayLogs.some(l => l.habitId === h.id && l.action === 'done')).length;
     const badIndulged = badHabits.filter(h => dayLogs.some(l => l.habitId === h.id && l.action === 'indulged')).length;
-    const badAvoided  = isPast ? badHabits.filter(h => !dayLogs.some(l => l.habitId === h.id && l.action === 'indulged')).length : 0;
+    const badAvoided = isPast ? badHabits.filter(h => !dayLogs.some(l => l.habitId === h.id && l.action === 'indulged')).length : 0;
     return { goodDone, badIndulged, badAvoided, score: calculateDayScore(date) };
   }, [habits, logs, calculateDayScore, today]);
 
