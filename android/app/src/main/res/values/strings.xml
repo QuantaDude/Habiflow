@@ -2,6 +2,6 @@
 <resources>
     <string name="app_name">HabiFlow</string>
     <string name="title_activity_main">HabiFlow</string>
-    <string name="package_name">com.yourname.habiflow</string>
-    <string name="custom_url_scheme">com.yourname.habiflow</string>
+    <string name="package_name">com.quantadude.habiflow</string>
+    <string name="custom_url_scheme">com.quantadude.habiflow</string>
 </resources>

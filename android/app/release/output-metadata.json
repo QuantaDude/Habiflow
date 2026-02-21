@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.yourname.habiflow",
+  "applicationId": "com.quantadude.habiflow",
   "variantName": "release",
   "elements": [
     {

@@ -1,4 +1,4 @@
-package com.yourname.habiflow;
+package com.quantadude.habiflow;
 
 import com.getcapacitor.BridgeActivity;
 

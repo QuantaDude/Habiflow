@@ -1,0 +1,3 @@
+HabiFlow lets you track your hobbies, impove your lifestyle, build new habits and forget bad ones.
+Sync support is available, it is encrypted so no one other than you can see it. 
+You can use multiple devices. The data is backed up only when you ask it to.
